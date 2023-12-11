@@ -3,10 +3,15 @@ import { Col, Input, Row } from "reactstrap";
 interface Props {
     range: number;
     setRange: (param:number) => void;
-    id: string
+    id: string;
+    min?: number;
+    max?: number;
 }
 
-export default function Ranger({range, setRange, id}:Props) {
+export const MIN_RANGE : number = 0;
+export const MAX_RANGE : number = 100;
+
+export default function Ranger({range, setRange, id, min, max}:Props) {
 
     const rangePercentageStyle:React.CSSProperties = {fontSize: "20px", fontWeight: 800}
 
@@ -18,7 +23,8 @@ export default function Ranger({range, setRange, id}:Props) {
                     id={id}
                     value={range}
                     onChange={(e) => {setRange(parseInt(e.target.value))}}
-
+                    min={min ? min : MIN_RANGE}
+                    max={max ? max : MAX_RANGE}
                 />
             </Col>
         </Row>
