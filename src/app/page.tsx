@@ -83,14 +83,14 @@ export default function Home() {
 
         {simplexSolution !== {} as SimplexSolution && <>
 
-          <p>Z: {simplexSolution.z}</p>
-          <p>x1: {simplexSolution.x1}</p>
-          <p>x2: {simplexSolution.x2}</p>
-          <p>x3: {simplexSolution.x3}</p>
-          <p>f1: {simplexSolution.f1}</p>
-          <p>f2: {simplexSolution.f2}</p>
-          <p>f3: {simplexSolution.f3}</p>
-          <p>f4: {simplexSolution.f4}</p>
+          <p>Indice de produtividade: {simplexSolution.z}</p>
+          <p>Horas de codificação: {simplexSolution.x1}h</p>
+          <p>Horas de reuniões com os clientes: {simplexSolution.x2}h</p>
+          <p>Horas de descanso: {simplexSolution.x3}h</p>
+          <p>Folga 1: {simplexSolution.f1}h</p>
+          <p>Folga 2: {simplexSolution.f2}h</p>
+          <p>Folga 3: {simplexSolution.f3}h</p>
+          <p>Folga 4: {simplexSolution.f4}h</p>
         
         </>}
 

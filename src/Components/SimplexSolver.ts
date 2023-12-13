@@ -143,7 +143,7 @@ export default class SimplexSolver{
             if(i == 5 && element !== -1) {
                 f3 = lastMatrix[element][lastMatrix[element].length - 1]
             }
-            if(i == 0 && element !== -1) {
+            if(i == 6 && element !== -1) {
                 f4 = lastMatrix[element][lastMatrix[element].length - 1]
             }
             
