@@ -15,18 +15,34 @@ export interface SimplexReady {
   maxMeetingPercentage: number;
 }
 
+export interface SimplexSolution {
+  z: number;
+  x1: number;
+  x2: number;
+  x3: number;
+  f1: number;
+  f2: number;
+  f3: number;
+  f4: number;
+}
+
 export default function Home() {
 
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [simplexReady, setSimplexReady] = useState<SimplexReady>({} as SimplexReady);
   const [simplexResult, setSimplexResult] = useState<number[][][]>([]);
+  const [simplexSolution, setSimplexSolution] = useState<SimplexSolution>({} as SimplexSolution)
 
   console.log(simplexReady);
 
   const executeSimplex = () => {
-    const solver = new SimplexSolver(simplexReady);
+    const solver : SimplexSolver = new SimplexSolver(simplexReady);
 
-    setSimplexResult(solver.execute())
+    const result : number[][][] = solver.execute();
+
+
+    setSimplexSolution(solver.simplexToResults(result));
+    setSimplexResult(result);
     // console.log(solver.initMatrix(10, 10));
   }
 
@@ -64,6 +80,19 @@ export default function Home() {
       {simplexResult.length > 0 && <>
       
         <p className='mt-5'>Problema Resolvido!</p>
+
+        {simplexSolution !== {} as SimplexSolution && <>
+
+          <p>Z: {simplexSolution.z}</p>
+          <p>x1: {simplexSolution.x1}</p>
+          <p>x2: {simplexSolution.x2}</p>
+          <p>x3: {simplexSolution.x3}</p>
+          <p>f1: {simplexSolution.f1}</p>
+          <p>f2: {simplexSolution.f2}</p>
+          <p>f3: {simplexSolution.f3}</p>
+          <p>f4: {simplexSolution.f4}</p>
+        
+        </>}
 
       </>}
     </main>

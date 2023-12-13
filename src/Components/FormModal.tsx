@@ -29,8 +29,8 @@ export default function FormModal({isModalOpen, setIsModalOpen, setSimplexReady}
     const [maxMeetingPercentage, setMaxMeetingPercentage] = useState<number>(1);
 
     const weekHoursInvalid : boolean = (weekHours < MIN_WEEK_HOURS || weekHours > MAX_WEEK_HOURS);
-    const percentageInvalid : boolean = (codeImpact + restImpact + meetImpact) > 100;
-
+    // const percentageInvalid : boolean = (codeImpact + restImpact + meetImpact) > 100;
+    const percentageInvalid : boolean = false;
     const bold : React.CSSProperties = {fontWeight: 800}
 
     const toggle = () => {
@@ -55,8 +55,8 @@ export default function FormModal({isModalOpen, setIsModalOpen, setSimplexReady}
                             id="codeImpact" 
                             range={codeImpact} 
                             setRange={setCodeImpact}
-                            min={50}
-                            max={80}
+                            // min={50}
+                            // max={80}
                         />
                         {percentageInvalid && 
                             <span style={{color: "#dc3545"}}>
@@ -73,7 +73,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, setSimplexReady}
                             range={meetImpact} 
                             setRange={setMeetImpact} 
                             id="meetImpact"
-                            max={100 - codeImpact}
+                            // max={100 - codeImpact}
                         />
                         {percentageInvalid && 
                             <span style={{color: "#dc3545"}}>
@@ -91,7 +91,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, setSimplexReady}
                             setRange={setRestImpact} 
                             id="restImpact"
                             min={0}
-                            max={100 - (codeImpact + meetImpact)}
+                            // max={100 - (codeImpact + meetImpact)}
                         />
                         {percentageInvalid && 
                             <span style={{color: "#dc3545"}}>
@@ -148,7 +148,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, setSimplexReady}
 
                         <Label for="maxWorkGoalPercentage">
                             <span style={bold}>7. </span>
-                            Qual o máximo de porcentagem das horas livres que você tem, você está disposto a comprometer para trabalhar?
+                            Qual o máximo de porcentagem das horas livres que você tem, você está disposto a comprometer para programar??
                         </Label>
                         <Ranger 
                             range={maxWorkGoalPercentage} 

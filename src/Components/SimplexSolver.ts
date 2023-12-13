@@ -1,4 +1,4 @@
-import { SimplexReady } from "@/app/page";
+import { SimplexReady, SimplexSolution } from "@/app/page";
 
 export interface SimplexResult {
     [a:string] : number;
@@ -76,6 +76,90 @@ export default class SimplexSolver{
       
         return matrix;
       }
+    
+    private findBases(matrix:number[][]) {
+        let result :number[] = [];
+        for (let i = 0; i < matrix[0].length; i++) {
+            let qtd = 0;
+            let row = -1;
+            for (let j = 0; j < matrix.length; j++) {
+                if(matrix[j][i] === 1) {
+                    qtd++;
+                    row = j;
+                }
+                else if(matrix[j][i] !== 0){
+                    qtd++;
+                    row = -1
+                }   
+            }
+            if(qtd === 1) {
+                result.push(row);
+            }
+            else{
+                result.push(-1)
+            }
+                
+        }
+        return result;
+    }
+
+    public simplexToResults(matrix:number[][][]) : SimplexSolution {
+        
+        const lastMatrix = matrix[matrix.length - 1];
+        let z = 0;
+        let x1 = 0;
+        let x2 = 0;
+        let x3 = 0;
+        let f1 = 0;
+        let f2 = 0;
+        let f3 = 0;
+        let f4 = 0;
+
+        
+        console.log("Last matrix: ", lastMatrix);
+        console.log("find bases: ",this.findBases(lastMatrix));
+
+        const bases = this.findBases(lastMatrix);
+
+        for (let i = 0; i < bases.length; i++) {
+            const element = bases[i];
+            console.log(element);
+            // (i == 0 && element !== -1) ? x1 = lastMatrix[element][i] : x1 = 0;
+            if(i == 0 && element !== -1) {
+                x1 = lastMatrix[element][lastMatrix[element].length - 1]
+            }
+            if(i == 1 && element !== -1) {
+                x2 = lastMatrix[element][lastMatrix[element].length - 1]
+            }
+            if(i == 2 && element !== -1) {
+                x3 = lastMatrix[element][lastMatrix[element].length - 1]
+            }
+            if(i == 3 && element !== -1) {
+                f1 = lastMatrix[element][lastMatrix[element].length - 1]
+            }
+            if(i == 4 && element !== -1) {
+                f2 = lastMatrix[element][lastMatrix[element].length - 1]
+            }
+            if(i == 5 && element !== -1) {
+                f3 = lastMatrix[element][lastMatrix[element].length - 1]
+            }
+            if(i == 0 && element !== -1) {
+                f4 = lastMatrix[element][lastMatrix[element].length - 1]
+            }
+            
+        }
+
+        return {
+            z: lastMatrix[0][lastMatrix[0].length - 1],
+            x1: x1,
+            x2: x2,
+            x3: x3,
+            f1: f1,
+            f2: f2,
+            f3: f3,
+            f4: f4
+        }
+    }
 
     public execute() {
         
@@ -87,7 +171,7 @@ export default class SimplexSolver{
                 [-this.data.codeImpact, -this.data.meetImpact, -this.data.restImpact , 0, 0, 0, 0, 0],
                 [1, 1, 1, 1, 0, 0, 0, this.data.weekHours],
                 [0, 0, 1, 0, 1, 0, 0, maxRestHours],
-                [1, 1, 0, 0, 0, 1, 0, maxWorkHours],
+                [1, 0, 0, 0, 0, 1, 0, maxWorkHours],
                 [0, 1, 0, 0, 0, 0, 1, maxMeetHours]
             ]
 
