@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Col, Form, FormFeedback, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, Row, Tooltip } from "reactstrap";
+import { Button, Card, CardBody, CardHeader, Col, Form, FormFeedback, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, Row, Tooltip } from "reactstrap";
 import Ranger, { MAX_RANGE } from "./Ranger";
 import { SimplexReady } from "@/app/page";
 
@@ -84,7 +84,7 @@ export default function FormModal({isModalOpen, setIsModalOpen, setSimplexReady}
 
                         <Label for="restImpact">
                             <span style={bold}>3. </span>
-                            o quanto você acha que as horas de descanso tem impacto na sua produtividade
+                            De 0 a 100, o quanto você acha que as horas de descanso tem impacto na sua produtividade
                         </Label>
                         <Ranger 
                             range={restImpact} 
@@ -120,6 +120,14 @@ export default function FormModal({isModalOpen, setIsModalOpen, setSimplexReady}
                         }
                         <hr/>
 
+                        <Card color="primary" style={{color: "white"}} className="mb-3">
+                            <CardHeader>
+                                <span style={{fontWeight: "700"}}>Observação</span>
+                            </CardHeader>
+                            <CardBody style={{backgroundColor: "#7773e1A"}}>
+                                <p>Não é obrigatório, mas se as proximas porcentagens somadas forem menor ou igual a 100 o resultado será mehor</p>
+                            </CardBody>
+                        </Card>
                         <Label for="restPercentage">
                             <span style={bold}>5. </span>
                             Qual a porcentagem máxima das horas livres que você tem, que você está disposto a gastar descansando?

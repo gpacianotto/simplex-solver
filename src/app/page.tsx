@@ -1,9 +1,10 @@
 'use client'
 import FormModal from '@/Components/FormModal';
+import NerdData from '@/Components/NerdData';
 import SimplexSolver from '@/Components/SimplexSolver';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
-import { Button, List, Modal, ModalBody, ModalHeader } from 'reactstrap';
+import { Button, Collapse, List, Modal, ModalBody, ModalHeader } from 'reactstrap';
 
 export interface SimplexReady {
   codeImpact : number;
@@ -31,7 +32,8 @@ export default function Home() {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [simplexReady, setSimplexReady] = useState<SimplexReady>({} as SimplexReady);
   const [simplexResult, setSimplexResult] = useState<number[][][]>([]);
-  const [simplexSolution, setSimplexSolution] = useState<SimplexSolution>({} as SimplexSolution)
+  const [simplexSolution, setSimplexSolution] = useState<SimplexSolution>({} as SimplexSolution);
+  const [nerdData, setNerdData] = useState<boolean>(false);
 
   console.log(simplexReady);
 
@@ -77,21 +79,31 @@ export default function Home() {
         </Button>
         </>
       }
-      {simplexResult.length > 0 && <>
+      {simplexResult.length > 0 && (simplexReady.codeImpact) && <>
       
         <p className='mt-5'>Problema Resolvido!</p>
 
-        {simplexSolution !== {} as SimplexSolution && <>
+        {(simplexSolution !== {} as SimplexSolution) && (simplexReady.codeImpact) && <>
 
-          <p>Indice de produtividade: {simplexSolution.z}</p>
-          <p>Horas de codificação: {simplexSolution.x1}h</p>
-          <p>Horas de reuniões com os clientes: {simplexSolution.x2}h</p>
-          <p>Horas de descanso: {simplexSolution.x3}h</p>
-          <p>Folga 1: {simplexSolution.f1}h</p>
+          <p>Você consegue alcançar o indice de produtividade de {simplexSolution.z} realizando:</p>
+          <p>Horas de codificação: {(simplexSolution.x1).toFixed(2)}h</p>
+          <p>Horas de reuniões com os clientes: {(simplexSolution.x2).toFixed(2)}h</p>
+          <p>Horas de descanso: {(simplexSolution.x3).toFixed(2)}h</p>
+          <p>Aproveitamento: {((((simplexSolution.x1 * simplexReady.codeImpact) + (simplexSolution.x2 * simplexReady.meetImpact)) / simplexSolution.z) * 100).toFixed(2)}%
+            </p>
+          {/* <p>Folga 1: {simplexSolution.f1}h</p>
           <p>Folga 2: {simplexSolution.f2}h</p>
           <p>Folga 3: {simplexSolution.f3}h</p>
-          <p>Folga 4: {simplexSolution.f4}h</p>
-        
+          <p>Folga 4: {simplexSolution.f4}h</p> */}
+
+          <Button onClick={() => setNerdData(!nerdData)}>
+            Dados para nerds
+          </Button>
+
+          <Collapse isOpen={nerdData}>
+            <NerdData simplexProblem={simplexReady} simplexResult={simplexResult} simplexSolution={simplexSolution}/>
+          </Collapse>
+
         </>}
 
       </>}
